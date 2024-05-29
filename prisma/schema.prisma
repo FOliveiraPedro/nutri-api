@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  password      String
+  refresh_token String
+  
+  ConsumedFood ConsumedFood[]
+  ExerciseProgress ExerciseProgress[]
+  WeightProgress WeightProgress[]
+  @@map("user")
+}
+
+model Category {
+  id         String   @id @default(uuid())
+  name       String
+
+
+  Food Food[]
+  @@map("category")
+}
+
+model Food {
+  id           String   @id @default(uuid())
+  name         String
+  category_id  String
+  category     Category @relation(fields: [category_id], references: [id])
+  vitamin_id   String
+  vitamin      Vitamin  @relation(fields: [vitamin_id], references: [id])
+  fat_id       String
+  fat          Fat  @relation(fields: [fat_id], references: [id])
+  nutrient_id  String
+  nutrient     Nutrient  @relation(fields: [nutrient_id], references: [id])
+  mineral_id   String
+  mineral      Mineral  @relation(fields: [mineral_id], references: [id])
+
+  ConsumedFood ConsumedFood[]
+  @@map("food")
+}
+
+model Mineral {
+  id         String   @id @default(uuid())
+  calcium    String
+  magnesium  String
+  manganese  String
+  phosphor   String
+  iron       String
+  sodium     String
+  potassium  String
+  copper     String
+  zinc       String
+
+  Food Food[]
+  @@map("mineral")
+}
+
+model Nutrient {
+  id              String   @id @default(uuid())
+  moisture        String
+  energy_calorie  String
+  energy_joule    String
+  fiber           String
+  ashes           String
+  carbs           String
+  protein         String
+
+  Food Food[]
+  @@map("nutrient")
+}
+
+model Vitamin {
+  id          String   @id @default(uuid())
+  vitamin_a   String
+  vitamin_b1  String
+  vitamin_b2  String
+  vitamin_b3  String
+  vitamin_b6  String
+  vitamin_c   String
+
+  Food Food[]
+  @@map("vitamin")
+}
+
+model Fat {
+  id          String   @id @default(uuid())
+  total_fat   String
+  cholesterol String
+  saturated   String
+  oil         String
+  omega3      String
+  trans       String
+
+  Food Food[]
+  @@map("fat")
+}
+
+model ConsumedFood {
+  id         String   @id @default(uuid())
+  user_id    String
+  user       User  @relation(fields: [user_id], references: [id])
+  quantity   String
+  date       String
+  food_id    String
+  food       Food  @relation(fields: [food_id], references: [id])
+
+  @@map("consumed_food")
+}
+
+model ExerciseProgress {
+  id         String   @id @default(uuid())
+  date       String
+  calories   String
+  activity   String
+  user_id    String
+  user       User  @relation(fields: [user_id], references: [id])
+
+  @@map("exercise_progress")
+}
+
+model WeightProgress {
+  id         String   @id @default(uuid())
+  weight     String
+  date       String
+  user_id    String
+  user       User  @relation(fields: [user_id], references: [id])
+
+  @@map("weight_progress")
+}
