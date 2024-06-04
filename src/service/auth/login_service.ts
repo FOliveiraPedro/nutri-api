@@ -37,15 +37,20 @@ export class LoginService {
         const refreshToken = await new GenerateRefreshToken().execute(response.id);
 
         response.refresh_token = refreshToken;
+        console.log(refreshToken);
 
-        prismaClient.user.update({
+        await prismaClient.user.update({
             where: {
                 email: email
             },
             data: {
-                refresh_token: refreshToken,
+                refresh_token: refreshToken
             },
         });
+
+        const response2 = await prismaClient.user.findUnique({ where: { email:email } });
+
+        console.log(response2);
 
         const user = {
             id: response.id,
