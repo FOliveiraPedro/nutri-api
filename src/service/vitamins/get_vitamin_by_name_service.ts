@@ -6,7 +6,7 @@ type VitaminRequest = {
     id: string
 }
 
-export class GetVitaminService {
+export class GetVitaminByNameService {
 
     async execute({ id }: VitaminRequest): Promise< Vitamin | Error >  {
         

@@ -2,15 +2,15 @@ import { Category } from "@prisma/client";
 import { prismaClient } from "../../database/prisma_client";
 
 type CategoryRequest = {
-    name: string
+    id: string
 }
 
-export class GetCategoryService {
+export class GetCategoryByIdService {
 
-    async execute({ name }: CategoryRequest): Promise< Category | Error >  {
+    async execute({ id }: CategoryRequest): Promise< Category | Error >  {
 
         
-        const response = await prismaClient.category.findFirst({ where: { name:name } })
+        const response = await prismaClient.category.findUnique({ where: { id:id } })
 
         if(!response) {
             console.log("Category does not exists");

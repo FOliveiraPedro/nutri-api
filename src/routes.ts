@@ -1,6 +1,6 @@
 import {Request, Response, Router} from "express"
 import { CreateFoodController } from "./controllers/food/create_food_controller";
-import { GetFoodController } from "./controllers/food/get_food_controller";
+import { GetFoodByNameController } from "./controllers/food/get_food_by_name_controller";
 import { RegisterController } from "./controllers/auth/register_controller";
 import { LoginController } from "./controllers/auth/login_controller";
 import { ensureauthencticated } from "./middlewares/ensure_authetication";
@@ -22,6 +22,7 @@ import multer from "multer";
 import { TacoCsvController } from "./controllers/taco_csv/taco_csv_controller";
 import { CreateCategoryController } from "./controllers/categories/create_category_controller";
 import { GetCategoryController } from "./controllers/categories/get_category_controller";
+import { GetFoodByIdController } from "./controllers/food/get_food_by_id_controller";
 
 const multerConfig = multer();
 
@@ -29,13 +30,10 @@ const routes = Router();
 
 routes.post("/taco", multerConfig.single("file"), new TacoCsvController().handle);
 
-
-routes.get("/teste", (request: Request, response: Response) => {
-    return response.json({"message":"deu certo"});
-});
-
 routes.post("/food",ensureauthencticated, new CreateFoodController().handle);
-routes.get("/food",ensureauthencticated, new GetFoodController().handle);
+routes.get("/food-by-name",ensureauthencticated, new GetFoodByNameController().handle);
+routes.get("/food-by-id",ensureauthencticated, new GetFoodByIdController().handle);
+
 routes.get("/foods",ensureauthencticated, new GetAllFoodController().handle);
 
 routes.post("/category", new CreateCategoryController().handle);

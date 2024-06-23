@@ -6,7 +6,7 @@ type FatRequest = {
     id: string
 }
 
-export class GetFatService {
+export class GetFatByIdService {
 
     async execute({ id }: FatRequest): Promise< Fat | Error >  {
         

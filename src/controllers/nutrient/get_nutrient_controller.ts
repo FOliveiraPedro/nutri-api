@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { GetCategoryService } from "../../service/categories/get_category_service";
-import { GetNutrientService } from "../../service/nutrient/get_nutrient_service";
+import { GetCategoryByNameService } from "../../service/categories/get_category_by_name_service";
+import { GetNutrientByNameService } from "../../service/nutrient/get_nutrient_by_name_service";
 
 
 export class GetNutrientController {
@@ -8,7 +8,7 @@ export class GetNutrientController {
         console.log(request.body);
         const {id} = request.body
 
-        const service = new GetNutrientService();
+        const service = new GetNutrientByNameService();
 
         const result = await service.execute({id});
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { GetCategoryService } from "../../service/categories/get_category_service";
-import { GetVitaminService } from "../../service/vitamins/get_vitamin_service";
+import { GetCategoryByNameService } from "../../service/categories/get_category_by_name_service";
+import { GetVitaminByNameService } from "../../service/vitamins/get_vitamin_by_name_service";
 
 
 export class GetVitaminController {
@@ -8,7 +8,7 @@ export class GetVitaminController {
         console.log(request.body);
         const {id} = request.body
 
-        const service = new GetVitaminService();
+        const service = new GetVitaminByNameService();
 
         const result = await service.execute({id});
 

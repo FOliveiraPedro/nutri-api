@@ -5,7 +5,7 @@ type MineralRequest = {
     id: string
 }
 
-export class GetMineralService {
+export class GetMineralNameService {
 
     async execute({ id }: MineralRequest): Promise< Mineral | Error >  {
 

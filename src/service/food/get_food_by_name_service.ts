@@ -2,19 +2,22 @@ import { Food } from "@prisma/client";
 import { prismaClient } from "../../database/prisma_client";
 
 type FoodRequest = {
-    name: string
+    id: string
 }
 
-export class GetFoodService {
+export class GetFoodByNameService {
 
-    async execute({ name }: FoodRequest): Promise< Food | Error >  {
-        const response = await prismaClient.food.findFirst({ where: { name:name } })
+    async execute({ id }: FoodRequest): Promise< Food | Error >  {
+        const response = await prismaClient.food.findFirst({ where: { name:id } })
 
         if(!response) {
             console.log("Food does not exists");
             return new Error("Food does not exists");
         }
-
+        
+        console.log("response");
+        console.log(response);
+        
         return response;
     }
 }

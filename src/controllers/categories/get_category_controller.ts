@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetCategoryService } from "../../service/categories/get_category_service";
+import { GetCategoryByNameService } from "../../service/categories/get_category_by_name_service";
 
 
 export class GetCategoryController {
@@ -7,7 +7,7 @@ export class GetCategoryController {
         console.log(request.body);
         const {name} = request.body
 
-        const service = new GetCategoryService();
+        const service = new GetCategoryByNameService();
 
         const result = await service.execute({name});
 

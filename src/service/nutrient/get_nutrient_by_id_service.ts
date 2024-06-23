@@ -5,7 +5,7 @@ type NutrientRequest = {
     id: string
 }
 
-export class GetNutrientService {
+export class GetNutrientByIdService {
 
     async execute({ id }: NutrientRequest): Promise< Nutrient | Error >  {
         

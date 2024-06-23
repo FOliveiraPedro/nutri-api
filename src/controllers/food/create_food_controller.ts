@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateFoodService } from "../../service/food/create_food_service";
-import { GetCategoryService } from "../../service/categories/get_category_service";
+import { GetCategoryByNameService } from "../../service/categories/get_category_by_name_service";
 import { CreateFatService } from "../../service/fat/create_fat_service";
 import { CreateMineralService } from "../../service/mineral/create_mineral_service";
 import { CreateNutrientService } from "../../service/nutrient/create_nutrient_service";
@@ -13,7 +13,7 @@ export class CreateFoodController {
 
         const foodService = new CreateFoodService();
 
-        const categoryService = new GetCategoryService();
+        const categoryService = new GetCategoryByNameService();
         const fatService = new CreateFatService();
         const vitaminService = new CreateVitaminService();
         const mineralService = new CreateMineralService();
