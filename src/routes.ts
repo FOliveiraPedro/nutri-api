@@ -23,6 +23,7 @@ import { TacoCsvController } from "./controllers/taco_csv/taco_csv_controller";
 import { CreateCategoryController } from "./controllers/categories/create_category_controller";
 import { GetCategoryController } from "./controllers/categories/get_category_controller";
 import { GetFoodByIdController } from "./controllers/food/get_food_by_id_controller";
+import { GetAllCategoryController } from "./controllers/categories/get_all_categories_controller";
 
 const multerConfig = multer();
 
@@ -38,6 +39,7 @@ routes.get("/foods",ensureauthencticated, new GetAllFoodController().handle);
 
 routes.post("/category", new CreateCategoryController().handle);
 routes.get("/category", new GetCategoryController().handle);
+routes.get("/categories", new GetAllCategoryController().handle);
 
 routes.post("/register", new RegisterController().handle);
 routes.post("/login", new LoginController().handle);
