@@ -2,18 +2,24 @@ import { ExerciseProgress } from "@prisma/client";
 import { prismaClient } from "../../database/prisma_client";
 
 type ExerciseRequest = {
-    exerciseId: string
+    exerciseId: string,
+    startDate: string,
+    endDate: string,
 }
 
 export class GetExerciseService {
 
-    async execute({ exerciseId }: ExerciseRequest): Promise< ExerciseProgress | Error >  {
+    async execute({ exerciseId, startDate, endDate }: ExerciseRequest): Promise< ExerciseProgress | Error >  {
         console.log(exerciseId);
 
         
         const response = await prismaClient.exerciseProgress.findUnique({
             where: { 
-                id: exerciseId
+                id: exerciseId,
+                date:{
+                    lte:startDate,
+                    gte:endDate
+                }
             } 
         })
 

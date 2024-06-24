@@ -115,6 +115,7 @@ model ConsumedFood {
   user       User  @relation(fields: [user_id], references: [id])
   quantity   String
   date       DateTime
+  meal       String
   food_id    String
   food       Food  @relation(fields: [food_id], references: [id])
 

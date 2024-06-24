@@ -6,13 +6,13 @@ export class CreateConsumedFoodController {
     async handle(request: Request, response: Response) {
 
         const authToken = await request.headers.authorization;   
-        const { date, quantity, foodId} = request.body;
+        const { date, quantity, foodId, meal} = request.body;
 
         const userId = new GetUserId().execute(authToken!);
 
         const service = new CreateConsumedFoodService();
         
-        const result = await service.execute({ quantity, date, foodId, userId });
+        const result = await service.execute({ quantity, date, foodId, userId, meal });
 
 
         if(result instanceof Error){

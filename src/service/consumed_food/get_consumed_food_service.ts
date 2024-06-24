@@ -12,16 +12,11 @@ export class GetConsumedFoodService {
 
     async execute({ quantity, date, foodId, userId }: ConsumedFoodRequest): Promise< ConsumedFood | Error >  {      
 
-        const consumed = prismaClient.consumedFood.create({
-            data:{
-                quantity,
-                date,
-                food_id:foodId,
-                user_id:userId
-            }
-        });
+        const consumed = await prismaClient.consumedFood.findFirst({where: {food_id:foodId}});
 
-        // await prismaClient.consumedFood.save(consumed);
+        if(!consumed){
+            return new Error("Consumed Food does not exists!");
+        }
 
         return consumed;
     }

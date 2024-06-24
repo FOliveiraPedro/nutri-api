@@ -3,14 +3,24 @@ import { prismaClient } from "../../database/prisma_client";
 
 
 type WeightProgressUpdateRequest = {
-    userId: string
+    userId: string,
+    startDate: string,
+    endDate: string,
 }
 
 export class GetAllWeightProgressService {
 
-    async execute({userId}: WeightProgressUpdateRequest): Promise< WeightProgress[] | Error >{
+    async execute({userId, startDate, endDate }: WeightProgressUpdateRequest): Promise< WeightProgress[] | Error >{
         
-        const response = await prismaClient.weightProgress.findMany({where: { user_id:userId }});
+        const response = await prismaClient.weightProgress.findMany({
+            where: {
+                 user_id:userId ,
+                 date:{
+                    lte:startDate,
+                    gte:endDate
+                }
+            }
+        });
         
         return response;
     }
