@@ -1,5 +1,6 @@
 import { ConsumedFood } from "@prisma/client";
 import { prismaClient } from "../../database/prisma_client";
+import { connect } from "http2";
 
 type ConsumedFoodRequest = {
     quantity: string,
@@ -12,15 +13,29 @@ type ConsumedFoodRequest = {
 export class CreateConsumedFoodService {
 
     async execute({ quantity, date, foodId, userId, meal}: ConsumedFoodRequest): Promise< ConsumedFood | Error >  {      
-
+        console.log(quantity);
+        console.log(date);
+        console.log(foodId);
+        console.log(userId);
+        console.log(meal);
+        let res: Date = new Date(date);
         const consumed = prismaClient.consumedFood.create({
             data:{
                 quantity,
-                date,
-                food_id:foodId,
-                user_id:userId,
-                meal: meal
+                date: res,
+                meal: meal,
+                food:{
+                    connect:{
+                        id:foodId
+                    }
+                },
+                user:{
+                    connect:{
+                        id:userId
+                    }
+                } 
             }
+            
         });
 
         // await prismaClient.consumedFood.save(consumed);

@@ -7,11 +7,11 @@ export class CreateConsumedFoodController {
 
         const authToken = await request.headers.authorization;   
         const { date, quantity, foodId, meal} = request.body;
-
+        console.log("Create Consumed Food ");
         const userId = new GetUserId().execute(authToken!);
 
         const service = new CreateConsumedFoodService();
-        
+
         const result = await service.execute({ quantity, date, foodId, userId, meal });
 
 
