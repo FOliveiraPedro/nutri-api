@@ -13,14 +13,18 @@ export class CreateExerciseProgressService {
 
     async execute({ date, userId, calories, activity }: ExerciseProgressRequest): Promise< ExerciseProgress | Error >  {
 
-        const convertedDate = '';
+        let res: Date = new Date(date);
 
         const exerciseProgress = prismaClient.exerciseProgress.create({
             data: {
-                date:convertedDate, 
+                date:res, 
                 calories, 
                 activity, 
-                user_id:userId
+                user:{
+                    connect:{
+                        id:userId
+                    }
+                }
             } 
         });
 
