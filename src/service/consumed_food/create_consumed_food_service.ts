@@ -13,12 +13,9 @@ type ConsumedFoodRequest = {
 export class CreateConsumedFoodService {
 
     async execute({ quantity, date, foodId, userId, meal}: ConsumedFoodRequest): Promise< ConsumedFood | Error >  {      
-        console.log(quantity);
-        console.log(date);
-        console.log(foodId);
-        console.log(userId);
-        console.log(meal);
+
         let res: Date = new Date(date);
+        
         const consumed = prismaClient.consumedFood.create({
             data:{
                 quantity,

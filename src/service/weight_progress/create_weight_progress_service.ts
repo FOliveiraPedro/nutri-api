@@ -11,13 +11,18 @@ export class CreateWeightProgressService {
 
     async execute({ date, userId, weight }: WeightProgressRequest): Promise< WeightProgress | Error >  {
 
-        const convertedDate = '';
+        let res: Date = new Date(date);
 
         const weightProgress = prismaClient.weightProgress.create({
             data:{
-                date: convertedDate, 
-                weight, 
-                user_id:userId} 
+                date: res, 
+                weight,
+                user:{
+                    connect:{
+                        id:userId
+                    }
+                }
+            } 
             });
 
         // await prismaClient.weightProgress.save(weightProgress);
