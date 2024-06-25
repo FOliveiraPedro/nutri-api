@@ -11,12 +11,15 @@ export class GetAllExerciseProgressService {
 
     async execute({ userId, startDate, endDate }: ExerciseProgressUpdateRequest): Promise< ExerciseProgress[] | Error >{
         
+        let start: Date = new Date(startDate);
+        let end: Date = new Date(endDate);
+
         const response = await prismaClient.exerciseProgress.findMany({
             where: { 
                 user_id: userId,
                 date:{
-                    lte: startDate,
-                    gte: endDate
+                    lte: end,
+                    gte: start
                 }
             }
         });

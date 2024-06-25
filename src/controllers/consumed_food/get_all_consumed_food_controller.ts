@@ -15,7 +15,7 @@ export class GetAllConsumedFoodController {
         const result = await service.execute({
             userId,
             startDate: start_date,
-            endDate:end_date
+            endDate: end_date
         });
 
         return response.json(result);

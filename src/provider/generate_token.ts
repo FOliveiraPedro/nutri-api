@@ -7,7 +7,7 @@ export class GenerateToken{
 
         const generatedToken = sign({},"0c97b3f5-5de2-44fe-8c04-f5d103f8925b",{
             subject: userId,
-            expiresIn: "120s"
+            expiresIn: "3600s"
         })
 
         return generatedToken;

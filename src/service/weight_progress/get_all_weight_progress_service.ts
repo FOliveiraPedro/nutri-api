@@ -12,12 +12,15 @@ export class GetAllWeightProgressService {
 
     async execute({userId, startDate, endDate }: WeightProgressUpdateRequest): Promise< WeightProgress[] | Error >{
         
+        let start: Date = new Date(startDate);
+        let end: Date = new Date(endDate);
+
         const response = await prismaClient.weightProgress.findMany({
             where: {
                  user_id:userId ,
                  date:{
-                    lte:startDate,
-                    gte:endDate
+                    lte:end,
+                    gte:start
                 }
             }
         });
