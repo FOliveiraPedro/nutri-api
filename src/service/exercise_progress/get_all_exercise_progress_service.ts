@@ -16,10 +16,12 @@ export class GetAllExerciseProgressService {
 
         const response = await prismaClient.exerciseProgress.findMany({
             where: { 
-                user_id: userId,
-                date:{
-                    lte: end,
-                    gte: start
+                AND:{
+                    user_id:userId ,
+                    date:{
+                       lte:end,
+                       gte:start
+                   }
                 }
             }
         });

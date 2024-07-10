@@ -1,7 +1,6 @@
 import { WeightProgress } from "@prisma/client";
 import { prismaClient } from "../../database/prisma_client";
 
-
 type WeightProgressUpdateRequest = {
     userId: string,
     startDate: string,
@@ -17,13 +16,17 @@ export class GetAllWeightProgressService {
 
         const response = await prismaClient.weightProgress.findMany({
             where: {
-                 user_id:userId ,
-                 date:{
-                    lte:end,
-                    gte:start
-                }
+                AND:{
+                    user_id:userId ,
+                    date:{
+                       lte:end,
+                       gte:start
+                   }
+                } 
             }
         });
+
+        console.log(response);
         
         return response;
     }

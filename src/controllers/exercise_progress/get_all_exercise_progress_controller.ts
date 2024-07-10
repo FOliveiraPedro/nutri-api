@@ -12,6 +12,8 @@ export class GetAllExerciseProgressController {
 
         const service = new GetAllExerciseProgressService();
 
+        console.log(userId);
+
         const result = await service.execute({
             userId,
             startDate: start_date,

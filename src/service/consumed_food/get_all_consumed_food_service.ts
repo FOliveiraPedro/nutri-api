@@ -13,24 +13,20 @@ export class GetAllConsumedFoodService {
         
         let start: Date = new Date(startDate);
         let end: Date = new Date(endDate);
-        console.log(start);
-        console.log(end);
+        
         const response = await prismaClient.consumedFood.findMany({
-            where: {
-                // user_id:userId,
-                date: {
-                    gte:start,
-                    lte:end
+            where: { 
+                AND:{
+                    user_id:userId ,
+                    date:{
+                       lte:end,
+                       gte:start
+                   }
                 }
             }
         });
 
         console.log(response);
-
-        if(!response) {
-            console.log("Category does not exists");
-            return new Error("Category does not exists");
-        }
         
         return response;
     }
